@@ -1,6 +1,6 @@
-const express = require('express');
+import express from 'express';
 const app = express()
-import roomRouter from './routes/v1/roomRouter'
+import roomRouter from './routes/v1/roomRouter.js'
 
 const port = 3000;
 

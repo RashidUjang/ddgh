@@ -1,7 +1,7 @@
-const express = require('express')
-const router = express.Router
-import roomController from '../../controllers/v1/roomController'
+import express from 'express'
+const router = express.Router()
+import { getCurrentRoom } from '../../controllers/v1/roomController.js'
 
-router.get('/room/:id', roomController.getCurrentRoom)
+router.get('/room/:id', getCurrentRoom)
 
 export default router
