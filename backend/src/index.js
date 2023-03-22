@@ -8,6 +8,6 @@ const app = express()
 
 app.use(roomRouter)
 
-app.listen(process.env.PORTs, () => {
-    console.log(`Listening on port ${process.env.PORT}.`)
+app.listen(process.env.BACKEND_PORT, () => {
+    console.log(`Listening on port ${process.env.BACKEND_PORT}.`)
 })

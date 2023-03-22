@@ -6,7 +6,9 @@ services:
     restart: unless-stopped
     build:
       context: ./backend
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
+    ports:
+      - 4000:4000
     volumes:
       - ./backend/src:/app/src
       - ./backend/nodemon.json:/app/nodemon.json
@@ -25,18 +27,15 @@ services:
       - backend
     build:
       context: ./frontend
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
+    ports:
+      - 3000:3000
     volumes:
       - ./frontend/src:/app/src/ # mounted whole src to avoid missing reload on new files
       - ./frontend/public:/app/public
-      - ./frontend/next-i18next.config.js:/app/next-i18next.config.js
     env_file: .env
     environment:
       - NEXT_PUBLIC_ENV=development
-      - INFISICAL_TELEMETRY_ENABLED=${TELEMETRY_ENABLED}
-      - NEXT_PUBLIC_STRIPE_PRODUCT_PRO=${STRIPE_PRODUCT_PRO}
-      - NEXT_PUBLIC_STRIPE_PRODUCT_TEAM=${STRIPE_PRODUCT_TEAM}
-      - NEXT_PUBLIC_STRIPE_PRODUCT_STARTER=${STRIPE_PRODUCT_STARTER}
     networks:
       - ddgh
 
