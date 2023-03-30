@@ -1,8 +1,10 @@
 import express from 'express'
 const router = express.Router()
-import { getCurrentRoom } from '../../controllers/v1/roomController.js'
+import { createAndFetchRoom, getRoom } from '../../controllers/v1/roomController.js'
 
 // V1 Routes
-router.get('/v1/room/:id', getCurrentRoom)
+router.get('/v1/room/:id', getRoom)
+router.post('/v1/room', createAndFetchRoom)
+
 
 export default router

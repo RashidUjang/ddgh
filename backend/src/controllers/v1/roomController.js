@@ -1,9 +1,25 @@
 import supabase from "../../configs/supabase.js";
+import { generateRoomCode } from "../../utils/utils.js";
 
-export const getCurrentRoom = (req, res) => {
-  return res.send("Hello");
+export const createAndFetchRoom = async (req, res) => {
+  try {
+    let { data, error } = await supabase
+      .from("rooms")
+      .insert({ room_code: generateRoomCode(5) })
+      .select("room_code");
+
+    return res.send(data[0]);
+  } catch (e) {
+    console.log(e);
+  }
 };
 
-export const getAnotherRoom = (req, res) => {
-  return res.send("Hello");
+export const getRoom = async (req, res) => {
+  try {
+    let { data } = await supabase.from("rooms").select();
+
+    return res.send(data);
+  } catch (e) {
+    console.log(e);
+  }
 };
