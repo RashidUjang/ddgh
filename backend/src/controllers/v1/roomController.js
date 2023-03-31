@@ -8,6 +8,7 @@ export const createAndFetchRoom = async (req, res) => {
       .insert({ room_code: generateRoomCode(5) })
       .select("room_code");
 
+      console.log(`req.session in roomController: ${req.session}`)
     return res.send(data[0]);
   } catch (e) {
     console.log(e);

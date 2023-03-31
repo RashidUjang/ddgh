@@ -1,3 +1,5 @@
+import crypto from "crypto";
+
 export const generateRoomCode = (length) => {
   let listOfCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   let roomCode = "";
@@ -9,4 +11,8 @@ export const generateRoomCode = (length) => {
   }
 
   return roomCode;
+};
+
+export const generateSessionId = () => {
+  return crypto.randomBytes(16).toString("base64");
 };
