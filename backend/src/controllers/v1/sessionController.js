@@ -1,20 +1,28 @@
 import supabase from "../../configs/supabase.js";
-import { generateSessionId } from "../../utils/utils.js";
 
 export const createAndFetchSession = async (req, res) => {
   try {
     let session = req.session;
-    let sessionId = generateSessionId()
-    session.sessionid = sessionId
-    console.log(`session in sessionController: ${session}`)
-
+    
     let { data, error } = await supabase
-      .from("sessions")
-      .insert({ session_id: sessionId })
+      .from("players")
       .select()
+      .eq("session_id", session.id);
 
-    return res.send(data);
+    if (Array.isArray(data) && data.length === 0) {
+      await supabase.from("players").insert({ session_id: session.id })
+    }
+
+    if (req.session.playerName !== req.body.playerName) {
+      session.playerName = req.body.playerName;
+    }
+
+    return res.send({});
   } catch (e) {
     console.log(e);
   }
+};
+
+export const getSession = async (req, res) => {
+  return res.send({ playerName: req.session.playerName });
 };

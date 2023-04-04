@@ -12,7 +12,3 @@ export const generateRoomCode = (length) => {
 
   return roomCode;
 };
-
-export const generateSessionId = () => {
-  return crypto.randomBytes(16).toString("base64");
-};

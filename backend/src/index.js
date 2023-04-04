@@ -31,6 +31,7 @@ app.use(cors({
 }));
 app.use(session(sessionSettings));
 app.use(cookieParser());
+app.use(express.json())
 
 app.use("/api/v1/room", roomRouter);
 app.use("/api/v1/session", sessionRouter);

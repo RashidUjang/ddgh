@@ -1,15 +1,21 @@
 import supabase from "../../configs/supabase.js";
 import { generateRoomCode } from "../../utils/utils.js";
 
-export const createAndFetchRoom = async (req, res) => {
+export const createAndJoinRoom = async (req, res) => {
   try {
-    let { data, error } = await supabase
+    let { data: room, error: roomError } = await supabase
       .from("rooms")
       .insert({ room_code: generateRoomCode(5) })
-      .select("room_code");
+      .select();
 
-      console.log(`req.session in roomController: ${req.session}`)
-    return res.send(data[0]);
+      let { data: player, error: playerError } = await supabase
+      .from("players")
+      .select()
+      .eq("session_id", req.session.id);
+
+    let { error: playersRoomsError } = await supabase.from("players_rooms").insert({room_id: room[0].id, player_id: player[0].id})
+
+    return res.send({room_code: room[0].room_code});
   } catch (e) {
     console.log(e);
   }
